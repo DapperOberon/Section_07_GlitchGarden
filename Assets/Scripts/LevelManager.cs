@@ -21,10 +21,6 @@ public class LevelManager : MonoBehaviour {
         }
     }
 
-    public void Update()
-    {
-    }
-
     public void LoadLevel(string name)
     {
         SceneManager.LoadScene(name);

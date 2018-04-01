@@ -5,6 +5,7 @@ using UnityEngine;
 public class DefenderSpawner : MonoBehaviour {
 
     private GameObject defenderParent;
+	private StarDisplay starDisplay;
 
     private void Start()
     {
@@ -14,21 +15,37 @@ public class DefenderSpawner : MonoBehaviour {
             //Debug.Log("No parent, spawning Projectiles parent");
             defenderParent = new GameObject("Defenders");
         }
+
+		starDisplay = GameObject.FindObjectOfType<StarDisplay>();
+		if (!starDisplay)
+		{
+			Debug.LogError(this.name + ": No StarDisplay found!");
+		}
     }
 
     private void OnMouseDown()
     {
-        Vector2 rawPos = CalculateMousePosition();
-        Vector2 snapPos = SnapToGrid(rawPos);
-        if (Button.selectedDefender)
-        {
-            GameObject defender = Instantiate(Button.selectedDefender, snapPos, Quaternion.identity);
-            defender.transform.parent = defenderParent.transform;
-        }
-        else
-        {
-            Debug.Log("No selected defender to spawn");
-        }
+		GameObject selectedDefender = Button.selectedDefender;
+		int defenderCost = selectedDefender.GetComponent<Defender>().starCost;
+
+		if(starDisplay.UseStars(defenderCost) == StarDisplay.Status.SUCCESS)
+		{
+			Vector2 rawPos = CalculateMousePosition();
+			Vector2 snapPos = SnapToGrid(rawPos);
+			if (Button.selectedDefender)
+			{
+				GameObject defender = Instantiate(selectedDefender, snapPos, Quaternion.identity);
+				defender.transform.parent = defenderParent.transform;
+			}
+			else
+			{
+				Debug.Log("No selected defender to spawn");
+			}
+		}
+		else
+		{
+			Debug.Log("Insufficient stars");
+		}
     }
 
     private Vector2 CalculateMousePosition()

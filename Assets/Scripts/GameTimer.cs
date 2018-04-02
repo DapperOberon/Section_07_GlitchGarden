@@ -10,9 +10,11 @@ public class GameTimer : MonoBehaviour {
 
 	public Slider timerSlider;
 	public Text timerText;
+	private GameObject passedText;
 	[Tooltip("Max Level time in sec.")]
 	public float maxTime;
 	private float currentTime;
+	private bool bLevelFinished = false;
 
 	// Use this for initialization
 	void Start () {
@@ -21,6 +23,14 @@ public class GameTimer : MonoBehaviour {
 		{
 			Debug.LogError(this.name + ": Cannot find LevelManager");
 		}
+
+		passedText = GameObject.Find("PassedText");
+		if (!passedText)
+		{
+			Debug.LogWarning(this.name + ": Cannot find PassedText");
+		}
+
+		passedText.SetActive(false);
 
 		currentTime = maxTime;
 		timerSlider.maxValue = maxTime;
@@ -36,9 +46,12 @@ public class GameTimer : MonoBehaviour {
 			timerSlider.value -= Time.deltaTime;
 			timerText.text = string.Format("{0:0}", currentTime);
 		}
-		else
+		else if(!bLevelFinished)
 		{
-			levelManager.LoadNextLevel();
+			Debug.Log("Level passed!");
+			passedText.SetActive(true);
+			Invoke("LoadNextLevel", 2f);
+			bLevelFinished = true;
 		}
 		
 	}
@@ -46,5 +59,10 @@ public class GameTimer : MonoBehaviour {
 	void Countdown()
 	{
 		currentTime -= Time.deltaTime;
+	}
+
+	void LoadNextLevel()
+	{
+		levelManager.LoadNextLevel();
 	}
 }

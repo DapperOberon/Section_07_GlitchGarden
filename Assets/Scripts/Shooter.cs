@@ -13,7 +13,7 @@ public class Shooter : MonoBehaviour {
 
     private void Start()
     {
-        animator = GameObject.FindObjectOfType<Animator>();
+        animator = GetComponent<Animator>();
 
         projectileParent = GameObject.Find("Projectiles");
         if (!projectileParent)

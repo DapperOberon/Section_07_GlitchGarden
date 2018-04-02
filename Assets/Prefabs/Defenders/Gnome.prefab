@@ -157,8 +157,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectile: {fileID: 1945192401476992, guid: 8d330d6faa181a144a16971d5276b3bd, type: 2}
-  projectileParent: {fileID: 1203862169017032, guid: 66cfbc09eb748464fad1aeebfd1bb885,
-    type: 2}
   spawnLocation: {fileID: 4368281560796608}
 --- !u!114 &114394893691441824
 MonoBehaviour:
@@ -183,6 +181,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b0608d8184c9f54699bd9bf97e75a92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  starCost: 50
 --- !u!212 &212067568822638922
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -192,6 +191,7 @@ SpriteRenderer:
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -207,6 +207,7 @@ SpriteRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 0
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
